@@ -1,0 +1,553 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex">
+<title>Proposta MedLevensohn MG</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=Public+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: proposta formal em duas colunas (rótulo à esquerda, conteúdo à direita); o mapa animado das lojas é o único momento ousado, no topo */
+:root {
+  --bg: #f4f7f5;
+  --surface: #ffffff;
+  --ink: #102a2c;
+  --muted: #536a6c;
+  --line: #d9e4e1;
+  --accent: #0f7a70;
+  --accent-soft: #e2f1ed;
+  --pin: #e0694a;
+  --hero: #0e3133;
+  --hero-ink: #eef6f3;
+  --hero-muted: #a9c6c1;
+  --hero-line: #23494b;
+  --hero-radius: #5fd0bd;
+  --ok: #1d7a4a;
+  --font-display: "Source Serif 4", Georgia, "Times New Roman", serif;
+  --font-body: "Public Sans", "Helvetica Neue", Arial, sans-serif;
+  --font-data: "IBM Plex Mono", ui-monospace, Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0b1718; --surface: #112324; --ink: #e7f1ee; --muted: #9cb4b2; --line: #22393a;
+    --accent: #52cbb8; --accent-soft: #15332f; --pin: #f08a6c;
+    --hero: #071314; --hero-ink: #eef6f3; --hero-muted: #93b2ad; --hero-line: #1c3436; --hero-radius: #52cbb8;
+    --ok: #5bc48a;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0b1718; --surface: #112324; --ink: #e7f1ee; --muted: #9cb4b2; --line: #22393a;
+  --accent: #52cbb8; --accent-soft: #15332f; --pin: #f08a6c;
+  --hero: #071314; --hero-ink: #eef6f3; --hero-muted: #93b2ad; --hero-line: #1c3436; --hero-radius: #52cbb8;
+  --ok: #5bc48a;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--ink); font-family: var(--font-body); font-size: 17px; line-height: 1.6; margin: 0; }
+.wrap { max-width: 1040px; margin: 0 auto; padding-inline: 24px; }
+h1, h2, h3 { font-family: var(--font-display); font-weight: 600; text-wrap: balance; margin: 0; }
+p { margin: 0; }
+a { color: var(--accent); }
+:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+
+/* ---------- Topo ---------- */
+.hero { background: var(--hero); color: var(--hero-ink); }
+.hero .wrap { padding-block: 28px 56px; display: grid; gap: 40px; }
+.topbar { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 24px; font-family: var(--font-data); font-size: 0.78rem; letter-spacing: .08em; text-transform: uppercase; color: var(--hero-muted); border-bottom: 1px solid var(--hero-line); padding-bottom: 16px; }
+.hero-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); gap: 48px; align-items: center; }
+.hero-text { display: grid; gap: 20px; min-width: 0; }
+.hero h1 { font-size: clamp(2.1rem, 4.6vw, 3.25rem); line-height: 1.1; letter-spacing: -0.01em; }
+.hero h1 em { font-style: italic; font-weight: 400; color: var(--hero-radius); }
+.hero .lead { color: var(--hero-muted); font-size: 1.1rem; max-width: 46ch; }
+
+.map { display: block; width: 100%; height: auto; }
+.streets path { stroke: var(--hero-line); }
+.radius circle { fill: var(--hero-radius); fill-opacity: .1; stroke: var(--hero-radius); stroke-opacity: .7; stroke-width: 1.5; stroke-dasharray: 4 5; }
+.pulse circle { fill: none; stroke: var(--hero-radius); stroke-width: 2; opacity: 0; }
+.people circle { fill: var(--hero-muted); opacity: .6; }
+.pin circle { fill: var(--pin); stroke: var(--hero); stroke-width: 3; transform-box: fill-box; transform-origin: center; }
+.map-label text { fill: var(--hero-ink); font-family: var(--font-data); font-size: 12px; }
+.map-scale line { stroke: var(--hero-muted); }
+.map-scale text { fill: var(--hero-muted); font-family: var(--font-data); font-size: 11px; }
+
+.facts { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); border-top: 1px solid var(--hero-line); }
+.facts div { padding: 18px 16px 0 0; display: grid; gap: 2px; min-width: 0; }
+.facts dt { font-family: var(--font-data); font-size: 0.72rem; letter-spacing: .08em; text-transform: uppercase; color: var(--hero-muted); }
+.facts dd { margin: 0; font-family: var(--font-display); font-size: 1.15rem; font-variant-numeric: tabular-nums; }
+
+/* ---------- Seções ---------- */
+main .wrap { padding-block: 24px 80px; }
+.sec { display: grid; grid-template-columns: 220px minmax(0, 1fr); gap: 32px; padding-block: 56px; border-bottom: 1px solid var(--line); }
+.sec:last-of-type { border-bottom: 0; }
+.sec-label { display: grid; gap: 6px; align-content: start; }
+.sec-label .num { font-family: var(--font-data); font-size: 0.78rem; color: var(--accent); letter-spacing: .08em; }
+.sec-label h2 { font-size: 1.55rem; line-height: 1.2; }
+.sec-body { display: grid; gap: 22px; min-width: 0; }
+.sec-body > p { max-width: 64ch; }
+.muted { color: var(--muted); }
+.small { font-size: 0.92rem; }
+
+/* Passos */
+.flow { list-style: none; counter-reset: step; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px 32px; }
+.flow li { counter-increment: step; display: grid; grid-template-columns: 36px 1fr; gap: 14px; }
+.flow li::before { content: counter(step); font-family: var(--font-display); font-size: 1.05rem; color: var(--accent); width: 36px; height: 36px; border: 1.5px solid var(--accent); border-radius: 50%; display: grid; place-items: center; }
+.flow strong { display: block; font-weight: 600; margin-bottom: 2px; }
+.flow span { color: var(--muted); font-size: 0.96rem; }
+
+/* Ritmo */
+.rhythm { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border: 1px solid var(--line); border-radius: 14px; background: var(--surface); }
+.rhythm div { padding: 20px 22px; display: grid; gap: 6px; align-content: start; }
+.rhythm div + div { border-left: 1px solid var(--line); }
+.when { font-family: var(--font-data); font-size: 0.76rem; letter-spacing: .06em; text-transform: uppercase; color: var(--accent); }
+.rhythm h3 { font-size: 1.15rem; }
+.rhythm p { color: var(--muted); font-size: 0.95rem; }
+.scope { margin: 0; padding-left: 1.1em; display: grid; gap: 6px; }
+.scope li::marker { color: var(--accent); }
+
+/* Verba */
+.budget-row { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+.channel { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 22px; display: grid; gap: 8px; align-content: start; }
+.channel-top { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+.channel h3 { font-size: 1.15rem; }
+.channel .amount { font-family: var(--font-display); font-size: 1.5rem; font-variant-numeric: tabular-nums; }
+.share { height: 6px; border-radius: 99px; background: var(--accent-soft); overflow: hidden; }
+.share i { display: block; height: 100%; background: var(--accent); border-radius: 99px; }
+.channel p { color: var(--muted); font-size: 0.95rem; }
+
+/* Cenários */
+.scenarios { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+.scenario { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 24px; display: grid; gap: 10px; align-content: start; }
+.scenario.pick { border-color: var(--accent); box-shadow: inset 0 3px 0 var(--accent); }
+.scenario-head { display: flex; justify-content: space-between; align-items: center; gap: 8px; flex-wrap: wrap; }
+.tag { font-family: var(--font-data); font-size: 0.74rem; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+.badge { font-size: 0.78rem; font-weight: 600; color: var(--accent); background: var(--accent-soft); padding: 3px 10px; border-radius: 99px; }
+.scenario h3 { font-size: 1.3rem; }
+.scenario .price { font-family: var(--font-data); font-size: 0.9rem; color: var(--muted); }
+.scenario p { font-size: 0.96rem; }
+
+/* Plano */
+.timeline { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0; }
+.timeline li { padding: 0 20px 0 0; display: grid; gap: 8px; align-content: start; }
+.timeline .bar { height: 4px; border-radius: 99px; background: var(--line); position: relative; margin-bottom: 8px; }
+.timeline .bar::before { content: ""; position: absolute; left: 0; top: -5px; width: 14px; height: 14px; border-radius: 50%; background: var(--accent); }
+.timeline li:first-child .bar { background: var(--accent); }
+.timeline .month { font-family: var(--font-data); font-size: 0.76rem; letter-spacing: .08em; text-transform: uppercase; color: var(--accent); }
+.timeline h3 { font-size: 1.15rem; }
+.timeline p { color: var(--muted); font-size: 0.95rem; }
+
+/* Medição */
+.measure { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; }
+.measure div { display: grid; gap: 6px; align-content: start; border-top: 2px solid var(--accent); padding-top: 14px; }
+.measure h3 { font-size: 1.08rem; }
+.measure p { color: var(--muted); font-size: 0.95rem; }
+
+/* Lista do que precisamos */
+.needs { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px 28px; }
+.needs li { display: grid; grid-template-columns: 20px 1fr; gap: 12px; }
+.needs .box { width: 18px; height: 18px; border: 2px solid var(--accent); border-radius: 5px; margin-top: 4px; }
+.needs strong { display: block; font-weight: 600; }
+.needs span { color: var(--muted); font-size: 0.94rem; }
+@media (max-width: 820px) { .needs { grid-template-columns: 1fr; } }
+/* Perguntas */
+.qa-intro { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px; }
+.save-state { font-family: var(--font-data); font-size: 0.8rem; color: var(--muted); }
+.save-state.ok { color: var(--ok); }
+.qa { display: grid; gap: 14px; }
+.q { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 20px 22px; display: grid; gap: 10px; }
+.q label.q-title, .q legend { font-weight: 600; padding: 0; }
+.q .hint { color: var(--muted); font-size: 0.9rem; margin-top: -4px; }
+.q fieldset { border: 0; margin: 0; padding: 0; display: grid; gap: 10px; min-width: 0; }
+.choices { display: flex; flex-wrap: wrap; gap: 8px; }
+.choice { position: relative; }
+.choice input { position: absolute; opacity: 0; inset: 0; cursor: pointer; }
+.choice span { display: inline-block; padding: 8px 14px; border: 1px solid var(--line); border-radius: 99px; font-size: 0.94rem; cursor: pointer; transition: background .15s, border-color .15s; }
+.choice input:checked + span { background: var(--accent); border-color: var(--accent); color: var(--surface); }
+.choice input:focus-visible + span { outline: 3px solid var(--accent); outline-offset: 2px; }
+textarea { width: 100%; min-height: 76px; resize: vertical; font: inherit; font-size: 0.96rem; color: var(--ink); background: var(--bg); border: 1px solid var(--line); border-radius: 10px; padding: 10px 12px; }
+textarea:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
+.q-status { font-family: var(--font-data); font-size: 0.75rem; color: var(--ok); min-height: 1em; }
+.qa-actions { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+.btn { font: inherit; font-weight: 600; font-size: 0.95rem; padding: 11px 20px; border-radius: 10px; border: 1px solid var(--accent); background: var(--accent); color: var(--surface); cursor: pointer; transition: transform .15s, opacity .15s; }
+.btn.ghost { background: transparent; color: var(--accent); }
+.btn:active { transform: scale(.98); }
+.notice { font-size: 0.92rem; color: var(--muted); border-left: 3px solid var(--pin); padding-left: 14px; }
+#copy-fallback { width: 100%; min-height: 160px; }
+
+footer.refs { border-top: 1px solid var(--line); }
+footer.refs .wrap { padding-block: 28px 48px; display: flex; flex-wrap: wrap; gap: 8px 24px; font-size: 0.86rem; color: var(--muted); }
+
+/* ---------- Animação ---------- */
+@media (prefers-reduced-motion: no-preference) {
+  .pulse circle { transform-box: fill-box; transform-origin: center; animation: pulse 2.8s ease-out infinite; animation-delay: var(--d); }
+  @keyframes pulse { 0% { transform: scale(.15); opacity: .8; } 80% { opacity: 0; } 100% { transform: scale(1); opacity: 0; } }
+  .pin circle { animation: pin-drop .7s cubic-bezier(.3,1.6,.5,1) both; }
+  .pin circle:nth-child(2) { animation-delay: .15s; } .pin circle:nth-child(3) { animation-delay: .3s; } .pin circle:nth-child(4) { animation-delay: .45s; } .pin circle:nth-child(5) { animation-delay: .6s; }
+  @keyframes pin-drop { from { transform: translateY(-16px) scale(.6); } to { transform: none; } }
+  .people circle { animation: walk 5s ease-in-out infinite; animation-delay: var(--d); }
+  @keyframes walk { 0%, 12% { transform: translate(0, 0); opacity: .6; } 70% { transform: translate(var(--x), var(--y)); opacity: 1; fill: var(--pin); } 85%, 100% { transform: translate(var(--x), var(--y)); opacity: 0; } }
+}
+
+/* ---------- Celular ---------- */
+@media (max-width: 820px) {
+  .hero-grid { grid-template-columns: 1fr; gap: 28px; }
+  .facts { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .sec { grid-template-columns: 1fr; gap: 18px; padding-block: 40px; }
+  .flow, .rhythm, .budget-row, .scenarios, .timeline, .measure { grid-template-columns: 1fr; }
+  .rhythm div + div { border-left: 0; border-top: 1px solid var(--line); }
+  .timeline { gap: 24px; }
+}
+@media (max-width: 480px) { .wrap { padding-inline: 16px; } }
+
+/* Diagramas */
+.fig { margin: 0; background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 22px 22px 18px; display: grid; gap: 14px; color: var(--ink); }
+.fig-scroll { overflow-x: auto; }
+.diagram { display: block; width: 100%; min-width: 640px; height: auto; font-family: var(--font-body); }
+.fig figcaption { color: var(--muted); font-size: 0.92rem; border-top: 1px solid var(--line); padding-top: 12px; }
+.diagram .node rect { fill: var(--bg); stroke: var(--line); stroke-width: 1.5; }
+.diagram .node-key rect { fill: var(--accent-soft); stroke: var(--accent); }
+.diagram .t-strong { fill: currentColor; font-size: 14px; font-weight: 600; }
+.diagram .t-sub { fill: var(--muted); font-size: 12px; }
+.diagram .t-edge text { fill: var(--muted); font-family: var(--font-data); font-size: 11px; }
+.diagram .loop { stroke: var(--pin); }
+.diagram .accent-fill { fill: var(--pin); }
+.diagram .t-loop { fill: var(--pin); font-size: 13px; font-weight: 600; }
+.diagram .store-on rect { fill: var(--accent); }
+.diagram .store-ring circle { stroke: var(--accent); stroke-dasharray: 3 4; stroke-width: 1.3; }
+.diagram .store-off rect { fill: var(--line); }
+.gantt .g-months rect { fill: var(--accent-soft); }
+.gantt .g-months text { fill: var(--accent); font-family: var(--font-data); font-size: 11px; letter-spacing: .04em; }
+.gantt .g-weeks text { fill: var(--muted); font-family: var(--font-data); font-size: 11px; }
+.gantt .g-grid line { stroke: var(--line); }
+.gantt .g-labels text { fill: currentColor; font-size: 13px; }
+.gantt .bar { fill: var(--accent); fill-opacity: .55; }
+.gantt .bar-key { fill: var(--accent); }
+.gantt .bar-soft { fill: var(--accent); fill-opacity: .18; }
+.gantt .ms { fill: var(--muted); }
+.gantt .ms-key { fill: var(--pin); }
+.explain { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; }
+.explain div { display: grid; gap: 6px; align-content: start; }
+.explain h3 { font-size: 1.08rem; }
+.explain p { color: var(--muted); font-size: 0.95rem; }
+
+/* Exemplo de anúncio */
+.ad-row { display: grid; grid-template-columns: 300px minmax(0, 1fr); gap: 40px; align-items: center; }
+.phone { margin: 0; background: var(--surface); border: 1px solid var(--line); border-radius: 26px; padding: 14px; box-shadow: 0 24px 50px -30px rgba(10, 50, 48, .45); display: grid; gap: 10px; }
+.phone-head { display: flex; align-items: center; gap: 10px; }
+.avatar { width: 32px; height: 32px; border-radius: 50%; background: var(--accent); color: var(--surface); display: grid; place-items: center; font-family: var(--font-display); font-weight: 600; }
+.phone-head div { display: grid; line-height: 1.2; }
+.phone-head strong { font-size: 0.88rem; }
+.phone-head span { font-size: 0.74rem; color: var(--muted); }
+.phone-media { aspect-ratio: 4 / 5; max-width: 100%; border-radius: 14px; background: linear-gradient(160deg, var(--hero) 0%, var(--accent) 100%); color: var(--hero-ink); padding: 22px; display: flex; flex-direction: column; justify-content: flex-end; gap: 8px; position: relative; overflow: hidden; }
+.phone-media::before { content: ""; position: absolute; right: -40px; top: -40px; width: 180px; height: 180px; border-radius: 50%; border: 2px dashed rgba(255,255,255,.35); }
+.phone-media::after { content: ""; position: absolute; right: 44px; top: 44px; width: 14px; height: 14px; border-radius: 50%; background: var(--pin); box-shadow: 0 0 0 6px rgba(255,255,255,.18); }
+.media-kicker { font-family: var(--font-data); font-size: 0.7rem; letter-spacing: .1em; text-transform: uppercase; opacity: .85; }
+.media-title { font-family: var(--font-display); font-size: 1.45rem; line-height: 1.15; }
+.media-pin { align-self: flex-start; background: rgba(255,255,255,.16); border-radius: 99px; padding: 4px 12px; font-size: 0.82rem; }
+.phone-cta { display: flex; justify-content: space-between; align-items: center; background: var(--accent-soft); color: var(--accent); font-weight: 600; font-size: 0.88rem; padding: 10px 12px; border-radius: 10px; }
+.phone-text { font-size: 0.84rem; color: var(--ink); }
+.ad-notes { list-style: none; margin: 0; padding: 0; display: grid; gap: 18px; }
+.ad-notes li { display: grid; grid-template-columns: 30px 1fr; gap: 14px; }
+.dot { width: 30px; height: 30px; border-radius: 50%; border: 1.5px solid var(--accent); color: var(--accent); font-family: var(--font-display); display: grid; place-items: center; }
+.ad-notes strong { display: block; }
+.ad-notes p { color: var(--muted); font-size: 0.95rem; }
+
+@media (max-width: 820px) {
+  .explain { grid-template-columns: 1fr; gap: 16px; }
+  .ad-row { grid-template-columns: 1fr; gap: 28px; }
+  .phone { max-width: 320px; justify-self: center; width: 100%; }
+}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="topbar">
+      <span>Proposta comercial · Tráfego pago</span>
+      <span>Para MedLevensohn · 08/10/2026</span>
+    </div>
+    <div class="hero-grid">
+      <div class="hero-text">
+        <h1>Cada loja Araujo de BH como ponto de venda <em>dos monitores MedLevensohn</em></h1>
+        <p class="lead">Anúncios para quem mora ou passa perto de cada loja, levando a pessoa a comprar o monitor de glicemia ali mesmo.</p>
+      </div>
+      <svg class="map" viewBox="0 0 640 300" role="img" aria-label="Mapa ilustrativo: lojas Araujo com um raio de anúncio em volta e pessoas chegando até elas">
+        <g class="streets" fill="none" stroke-width="2">
+          <path d="M0 80 L640 56"/><path d="M0 196 L640 230"/><path d="M120 0 L160 300"/><path d="M330 0 L300 300"/><path d="M520 0 L560 300"/><path d="M0 280 L270 0"/><path d="M380 300 L640 140"/>
+        </g>
+        <g class="radius">
+          <circle cx="150" cy="104" r="60"/><circle cx="318" cy="170" r="74"/><circle cx="526" cy="90" r="54"/><circle cx="480" cy="240" r="46"/><circle cx="90" cy="236" r="40"/>
+        </g>
+        <g class="pulse" aria-hidden="true">
+          <circle cx="150" cy="104" r="60" style="--d:0s"/><circle cx="318" cy="170" r="74" style="--d:.6s"/><circle cx="526" cy="90" r="54" style="--d:1.2s"/><circle cx="480" cy="240" r="46" style="--d:1.8s"/><circle cx="90" cy="236" r="40" style="--d:2.2s"/>
+        </g>
+        <g class="people" aria-hidden="true">
+          <circle cx="60" cy="50" r="3.5" style="--d:0s;--x:74px;--y:46px"/><circle cx="250" cy="70" r="3.5" style="--d:1s;--x:-82px;--y:30px"/>
+          <circle cx="230" cy="262" r="3.5" style="--d:.5s;--x:72px;--y:-80px"/><circle cx="420" cy="130" r="3.5" style="--d:1.5s;--x:-86px;--y:34px"/>
+          <circle cx="610" cy="160" r="3.5" style="--d:.8s;--x:-74px;--y:-62px"/><circle cx="580" cy="290" r="3.5" style="--d:2s;--x:-90px;--y:-44px"/>
+          <circle cx="430" cy="24" r="3.5" style="--d:2.4s;--x:88px;--y:58px"/><circle cx="20" cy="170" r="3.5" style="--d:1.3s;--x:62px;--y:58px"/>
+        </g>
+        <g class="pin">
+          <circle cx="150" cy="104" r="7"/><circle cx="318" cy="170" r="7"/><circle cx="526" cy="90" r="7"/><circle cx="480" cy="240" r="7"/><circle cx="90" cy="236" r="7"/>
+        </g>
+        <g class="map-label">
+          <text x="150" y="134" text-anchor="middle">Araujo</text><text x="318" y="200" text-anchor="middle">Araujo</text><text x="526" y="120" text-anchor="middle">Araujo</text><text x="480" y="270" text-anchor="middle">Araujo</text><text x="90" y="266" text-anchor="middle">Araujo</text>
+        </g>
+        <g class="map-scale">
+          <line x1="560" y1="284" x2="618" y2="284" stroke-width="2"/>
+          <text x="589" y="276" text-anchor="middle">1 a 3 km</text>
+        </g>
+      </svg>
+    </div>
+    <dl class="facts">
+      <div><dt>Região</dt><dd>Belo Horizonte</dd></div>
+      <div><dt>Lojas</dt><dd>10 a 20</dd></div>
+      <div><dt>Raio</dt><dd>1 a 3 km</dd></div>
+      <div><dt>Canais</dt><dd>Meta e Google</dd></div>
+      <div><dt>Duração</dt><dd>3 meses</dd></div>
+    </dl>
+  </div>
+</header>
+
+<main>
+  <div class="wrap">
+
+    <section class="sec">
+      <div class="sec-label"><span class="num">01</span><h2>A jornada do cliente</h2></div>
+      <div class="sec-body">
+        <p>A campanha não tenta convencer o Brasil inteiro. Ela fala só com quem está a poucos minutos de uma Araujo que tem o monitor na prateleira, e leva essa pessoa até o balcão.</p>
+        <figure class="fig">
+          <div class="fig-scroll">
+          <svg class="diagram" viewBox="0 0 960 250" role="img" aria-label="Jornada: a pessoa perto da loja vê o anúncio, clica, vai à loja Araujo e compra o monitor; depois volta todo mês para repor tiras ou sensores">
+            <defs>
+              <marker id="arr-a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="currentColor"/></marker>
+              <marker id="arr-a-accent" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="accent-fill" d="M0 0 L10 5 L0 10 z"/></marker>
+            </defs>
+            <g class="node"><rect x="20" y="60" width="150" height="72" rx="12"/><text x="95" y="92" text-anchor="middle" class="t-strong">Pessoa perto</text><text x="95" y="110" text-anchor="middle" class="t-strong">da loja</text></g>
+            <g class="node"><rect x="215" y="60" width="150" height="72" rx="12"/><text x="290" y="92" text-anchor="middle" class="t-strong">Vê o anúncio</text><text x="290" y="112" text-anchor="middle" class="t-sub">Instagram · Google</text></g>
+            <g class="node"><rect x="410" y="60" width="150" height="72" rx="12"/><text x="485" y="92" text-anchor="middle" class="t-strong">Clica</text><text x="485" y="112" text-anchor="middle" class="t-sub">site Araujo ou rota</text></g>
+            <g class="node"><rect x="605" y="60" width="150" height="72" rx="12"/><text x="680" y="92" text-anchor="middle" class="t-strong">Vai à Araujo</text><text x="680" y="112" text-anchor="middle" class="t-sub">balcão da loja</text></g>
+            <g class="node node-key"><rect x="800" y="60" width="140" height="72" rx="12"/><text x="870" y="92" text-anchor="middle" class="t-strong">Compra</text><text x="870" y="112" text-anchor="middle" class="t-sub">o monitor</text></g>
+            <g class="edge" fill="none" stroke="currentColor" stroke-width="1.6">
+              <line x1="170" y1="96" x2="211" y2="96" marker-end="url(#arr-a)"/>
+              <line x1="365" y1="96" x2="406" y2="96" marker-end="url(#arr-a)"/>
+              <line x1="560" y1="96" x2="601" y2="96" marker-end="url(#arr-a)"/>
+              <line x1="755" y1="96" x2="796" y2="96" marker-end="url(#arr-a)"/>
+            </g>
+            <g class="t-edge">
+              <text x="95" y="44" text-anchor="middle">raio de 1 a 3 km</text>
+              <text x="290" y="44" text-anchor="middle">alcance no raio</text>
+              <text x="485" y="44" text-anchor="middle">interesse</text>
+              <text x="680" y="44" text-anchor="middle">visita</text>
+              <text x="870" y="44" text-anchor="middle">venda</text>
+            </g>
+            <path class="loop" d="M870 132 L870 196 Q870 210 856 210 L694 210 Q680 210 680 196 L680 136" fill="none" stroke-width="2" stroke-dasharray="6 5" marker-end="url(#arr-a-accent)"/>
+            <text x="775" y="232" text-anchor="middle" class="t-loop">volta para repor tiras ou sensores</text>
+          </svg>
+          </div>
+          <figcaption>O caminho de uma venda. A linha tracejada é a recompra: quem começa a usar o monitor volta à farmácia para repor tiras (On Call Plus II) ou sensores (Smart 2.0).</figcaption>
+        </figure>
+        <div class="explain">
+          <div><h3>Por que perto da loja</h3><p>Monitor de glicemia é compra de necessidade, feita na farmácia de confiança. Anunciar para quem está longe de uma Araujo desperdiça verba. No raio, cada real gasto fala com alguém que consegue comprar no mesmo dia.</p></div>
+          <div><h3>Por que dois canais</h3><p>O Instagram e o Facebook mostram o produto para quem ainda não está procurando, como o filho que cuida da mãe diabética. O Google pega quem já pesquisou "medidor de glicose" e só precisa saber onde comprar.</p></div>
+          <div><h3>Por que a recompra importa</h3><p>A primeira venda é só a porta de entrada. O valor de verdade está nas tiras e sensores comprados mês após mês. Por isso uma venda de monitor vale mais do que o preço da caixa.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="sec">
+      <div class="sec-label"><span class="num">02</span><h2>Como o anúncio aparece</h2></div>
+      <div class="sec-body">
+        <p>Cada anúncio fala do produto e da loja mais próxima. A pessoa entende em 3 segundos o que é, onde está e como chegar.</p>
+        <div class="ad-row">
+          <figure class="phone" aria-label="Exemplo ilustrativo de anúncio no Instagram">
+            <div class="phone-head"><span class="avatar" aria-hidden="true">M</span><div><strong>MedLevensohn</strong><span>Patrocinado</span></div></div>
+            <div class="phone-media">
+              <span class="media-kicker">Monitor de glicemia</span>
+              <span class="media-title">Medir a glicose sem parar o seu dia</span>
+              <span class="media-pin">Na Araujo a 800 m de você</span>
+            </div>
+            <div class="phone-cta"><span>Ver loja mais próxima</span><span aria-hidden="true">›</span></div>
+            <p class="phone-text"><strong>MedLevensohn</strong> Resultado em segundos, histórico no celular. Disponível na Araujo do seu bairro.</p>
+          </figure>
+          <ul class="ad-notes">
+            <li><span class="dot">1</span><div><strong>O produto em primeiro plano</strong><p>Foto ou vídeo curto do monitor em uso, com material da campanha "Seja Smart".</p></div></li>
+            <li><span class="dot">2</span><div><strong>A distância até a loja</strong><p>A mensagem cita a Araujo próxima. Isso transforma um anúncio genérico num convite concreto.</p></div></li>
+            <li><span class="dot">3</span><div><strong>Um único botão</strong><p>"Ver loja mais próxima" abre a rota no mapa ou a página do produto no site da Araujo.</p></div></li>
+            <li><span class="dot">4</span><div><strong>Texto conferido</strong><p>Toda frase técnica segue o registro do produto na Anvisa e é aprovada pela MedLevensohn antes de ir ao ar.</p></div></li>
+          </ul>
+        </div>
+        <p class="muted small">Exemplo ilustrativo. Textos e imagens finais saem dos materiais da marca.</p>
+      </div>
+    </section>
+
+    <section class="sec">
+      <div class="sec-label"><span class="num">03</span><h2>Ritmo de trabalho</h2></div>
+      <div class="sec-body">
+        <p>Trabalho planejado, sem operação diária. A maior parte acontece no início de cada mês.</p>
+        <div class="rhythm">
+          <div><span class="when">Início</span><h3>2 a 3 dias</h3><p>Endereços, raios, públicos, primeiros anúncios e campanhas no ar.</p></div>
+          <div><span class="when">Todo mês</span><h3>1 dia</h3><p>Planejamento: quais lojas reforçar, quais anúncios trocar, conteúdos novos.</p></div>
+          <div><span class="when">Toda semana</span><h3>Conferência</h3><p>Gasto e resultado acompanhados com relatório automático.</p></div>
+        </div>
+        <ul class="scope">
+          <li>Configuração das campanhas por loja no Meta Ads e no Google Ads</li>
+          <li>Conteúdo dos anúncios feito com os materiais da MedLevensohn</li>
+          <li>Relatório mensal por loja e reunião de 30 minutos</li>
+        </ul>
+        <p class="muted small">Próxima fase, se fizer sentido: ajustes no site e nas redes sociais da marca.</p>
+      </div>
+    </section>
+
+    <section class="sec">
+      <div class="sec-label"><span class="num">04</span><h2>Investimento em mídia</h2></div>
+      <div class="sec-body">
+        <p>Referência de R$ 2.000 por mês, pagos direto ao Google e à Meta no cartão da MedLevensohn. O valor é variável e se ajusta a partir do 2º mês.</p>
+        <div class="budget-row">
+          <div class="channel">
+            <div class="channel-top"><h3>Instagram e Facebook</h3><span class="amount">R$ 1.200</span></div>
+            <div class="share" aria-hidden="true"><i style="width: 60%"></i></div>
+            <p>Alcança quem está no raio de cada loja, mesmo sem estar procurando.</p>
+          </div>
+          <div class="channel">
+            <div class="channel-top"><h3>Google</h3><span class="amount">R$ 800</span></div>
+            <div class="share" aria-hidden="true"><i style="width: 40%"></i></div>
+            <p>Aparece para quem pesquisa medidor de glicose perto da loja.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="sec">
+      <div class="sec-label"><span class="num">05</span><h2>Cobertura</h2></div>
+      <div class="sec-body">
+        <div class="scenarios">
+          <article class="scenario pick">
+            <div class="scenario-head"><span class="tag">Cenário A</span><span class="badge">Recomendado para começar</span></div>
+            <h3>Lojas selecionadas</h3>
+            <span class="price">10 a 20 lojas · R$ 2.000/mês</span>
+            <p>As lojas de BH que mais vendem ou têm mais movimento. A verba fica forte em cada raio, e as lojas sem anúncio servem de comparação.</p>
+          </article>
+          <article class="scenario">
+            <div class="scenario-head"><span class="tag">Cenário B</span></div>
+            <h3>Todas as lojas de BH</h3>
+            <span class="price">R$ 3.000 a R$ 4.000/mês</span>
+            <p>Um raio em volta de cada Araujo da capital e região metropolitana. Com R$ 2.000 a verba ficaria fraca demais em cada loja.</p>
+          </article>
+        </div>
+        <p class="muted small">Valores de referência, ajustados depois do primeiro mês com o custo real de cada região.</p>
+      </div>
+    </section>
+
+    <section class="sec">
+      <div class="sec-label"><span class="num">06</span><h2>Os 3 meses, semana a semana</h2></div>
+      <div class="sec-body">
+        <p>O primeiro mês é de teste, o segundo de ajuste e o terceiro de prova. Algumas frentes rodam o tempo todo; outras só começam quando já existem dados.</p>
+        <figure class="fig">
+          <div class="fig-scroll">
+          <svg class="diagram gantt" viewBox="0 0 900 330" role="img" aria-label="Cronograma de 12 semanas: implantação nas semanas 1 e 2, testes de anúncios da 2 à 6, corte e concentração da 5 à 8, remarketing de reposição da 6 à 12, comparação de vendas da 9 à 12, relatórios nas semanas 4, 8 e 12 e decisão na semana 12">
+            <g class="g-months">
+              <rect x="210" y="8" width="226" height="22" rx="6"/><rect x="438" y="8" width="226" height="22" rx="6"/><rect x="666" y="8" width="224" height="22" rx="6"/>
+              <text x="323" y="23" text-anchor="middle">Mês 1 · testar</text><text x="551" y="23" text-anchor="middle">Mês 2 · ajustar</text><text x="778" y="23" text-anchor="middle">Mês 3 · provar</text>
+            </g>
+            <g class="g-weeks"><text x="238.3" y="50" text-anchor="middle">1</text><text x="295.0" y="50" text-anchor="middle">2</text><text x="351.7" y="50" text-anchor="middle">3</text><text x="408.3" y="50" text-anchor="middle">4</text><text x="465.0" y="50" text-anchor="middle">5</text><text x="521.7" y="50" text-anchor="middle">6</text><text x="578.3" y="50" text-anchor="middle">7</text><text x="635.0" y="50" text-anchor="middle">8</text><text x="691.7" y="50" text-anchor="middle">9</text><text x="748.3" y="50" text-anchor="middle">10</text><text x="805.0" y="50" text-anchor="middle">11</text><text x="861.7" y="50" text-anchor="middle">12</text></g>
+            <g class="g-grid" stroke-width="1"><line x1="210.0" y1="58" x2="210.0" y2="318"/><line x1="266.7" y1="58" x2="266.7" y2="318"/><line x1="323.3" y1="58" x2="323.3" y2="318"/><line x1="380.0" y1="58" x2="380.0" y2="318"/><line x1="436.7" y1="58" x2="436.7" y2="318"/><line x1="493.3" y1="58" x2="493.3" y2="318"/><line x1="550.0" y1="58" x2="550.0" y2="318"/><line x1="606.7" y1="58" x2="606.7" y2="318"/><line x1="663.3" y1="58" x2="663.3" y2="318"/><line x1="720.0" y1="58" x2="720.0" y2="318"/><line x1="776.7" y1="58" x2="776.7" y2="318"/><line x1="833.3" y1="58" x2="833.3" y2="318"/><line x1="890.0" y1="58" x2="890.0" y2="318"/></g>
+            <g class="g-labels"><text x="20" y="83">Implantação</text><text x="20" y="121">Testes de anúncios</text><text x="20" y="159">Ajuste semanal</text><text x="20" y="197">Corte e concentração</text><text x="20" y="235">Anúncio de reposição</text><text x="20" y="273">Comparação de vendas</text><text x="20" y="311">Relatório e decisão</text></g>
+            <g class="g-bars"><rect class="bar-key" x="213.0" y="66" width="107.3" height="24" rx="6"/><rect class="bar" x="269.7" y="104" width="277.3" height="24" rx="6"/><rect class="bar-soft" x="213.0" y="142" width="674.0" height="24" rx="6"/><rect class="bar" x="439.7" y="180" width="220.7" height="24" rx="6"/><rect class="bar" x="496.3" y="218" width="390.7" height="24" rx="6"/><rect class="bar-key" x="666.3" y="256" width="220.7" height="24" rx="6"/><path class="ms" d="M430.7 297 l9 9 l-9 9 l-9 -9 z"/><path class="ms" d="M657.3 297 l9 9 l-9 9 l-9 -9 z"/><path class="ms-key" d="M884.0 297 l9 9 l-9 9 l-9 -9 z"/></g>
+          </svg>
+          </div>
+          <figcaption>Cada barra é uma frente de trabalho. Os losangos marcam os relatórios mensais e a decisão final.</figcaption>
+        </figure>
+        <div class="explain">
+          <div><h3>Mês 1 · Implantar e testar</h3><p>Lojas escolhidas, raios marcados e campanhas no ar na primeira semana. Rodamos 2 a 3 versões de anúncio por loja para descobrir qual mensagem leva mais gente à Araujo.</p></div>
+          <div><h3>Mês 2 · Concentrar onde funciona</h3><p>Anúncios e lojas sem resposta saem. A verba vai para os raios que mais geraram cliques e rotas. Começa o anúncio de reposição para quem já demonstrou interesse.</p></div>
+          <div><h3>Mês 3 · Provar o resultado</h3><p>Comparamos vendas das lojas com e sem anúncio. Fechamos com uma recomendação clara: ampliar, manter ou parar.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="sec">
+      <div class="sec-label"><span class="num">07</span><h2>Como provamos o resultado</h2></div>
+      <div class="sec-body">
+        <p>A venda acontece no balcão da Araujo, longe dos sistemas de anúncio. Para separar o efeito da campanha do movimento normal do mercado, usamos um grupo de comparação.</p>
+        <figure class="fig">
+          <div class="fig-scroll">
+          <svg class="diagram" viewBox="0 0 900 290" role="img" aria-label="Medição: as vendas das lojas com anúncio e das lojas sem anúncio entram numa comparação; a diferença entre os dois grupos é o efeito da campanha, que decide ampliar, manter ou parar">
+            <defs>
+              <marker id="arr-m" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="currentColor"/></marker>
+            </defs>
+            <text x="20" y="36" class="t-strong">Lojas com anúncio</text>
+            <g class="store store-on">
+              <rect x="20" y="52" width="40" height="40" rx="8"/><rect x="70" y="52" width="40" height="40" rx="8"/><rect x="120" y="52" width="40" height="40" rx="8"/><rect x="170" y="52" width="40" height="40" rx="8"/><rect x="220" y="52" width="40" height="40" rx="8"/>
+            </g>
+            <g class="store-ring" fill="none">
+              <circle cx="40" cy="72" r="27"/><circle cx="90" cy="72" r="27"/><circle cx="140" cy="72" r="27"/><circle cx="190" cy="72" r="27"/><circle cx="240" cy="72" r="27"/>
+            </g>
+            <text x="20" y="176" class="t-strong">Lojas sem anúncio</text>
+            <g class="store store-off">
+              <rect x="20" y="192" width="40" height="40" rx="8"/><rect x="70" y="192" width="40" height="40" rx="8"/><rect x="120" y="192" width="40" height="40" rx="8"/><rect x="170" y="192" width="40" height="40" rx="8"/><rect x="220" y="192" width="40" height="40" rx="8"/>
+            </g>
+            <text x="20" y="256" class="t-sub">mesmo perfil, mesma cidade</text>
+            <g class="edge" fill="none" stroke="currentColor" stroke-width="1.6">
+              <path d="M282 72 C340 72 340 128 386 132" marker-end="url(#arr-m)"/>
+              <path d="M282 212 C340 212 340 160 386 156" marker-end="url(#arr-m)"/>
+              <line x1="610" y1="144" x2="666" y2="144" marker-end="url(#arr-m)"/>
+            </g>
+            <g class="t-edge"><text x="318" y="64">vendas do mês</text><text x="318" y="236">vendas do mês</text></g>
+            <g class="node"><rect x="390" y="96" width="220" height="96" rx="12"/>
+              <text x="500" y="128" text-anchor="middle" class="t-strong">Comparação</text>
+              <text x="500" y="150" text-anchor="middle" class="t-sub">cada grupo contra os seus</text>
+              <text x="500" y="168" text-anchor="middle" class="t-sub">3 meses anteriores</text></g>
+            <g class="node node-key"><rect x="670" y="96" width="210" height="96" rx="12"/>
+              <text x="775" y="128" text-anchor="middle" class="t-strong">Diferença entre</text>
+              <text x="775" y="146" text-anchor="middle" class="t-strong">os grupos</text>
+              <text x="775" y="170" text-anchor="middle" class="t-sub">= efeito da campanha</text></g>
+            <g class="t-edge"><text x="775" y="222" text-anchor="middle">decide: ampliar · manter · parar</text></g>
+          </svg>
+          </div>
+          <figcaption>Se as lojas com anúncio crescem mais do que as lojas sem anúncio no mesmo período, a diferença é o que a campanha trouxe.</figcaption>
+        </figure>
+        <div class="explain">
+          <div><h3>Cliques e rotas por loja</h3><p>Cada raio tem seu próprio link. Sabemos, toda semana, qual loja despertou mais interesse e qual anúncio funcionou melhor.</p></div>
+          <div><h3>Vendas por loja</h3><p>Todo mês, a MedLevensohn compartilha as vendas do monitor por loja. É o número que importa de verdade.</p></div>
+          <div><h3>Cupom, se possível</h3><p>Se a Araujo aceitar um código exclusivo da campanha, passamos a contar cada venda vinda do anúncio, sem estimativa.</p></div>
+        </div>
+        <p class="muted small">Google e Meta não permitem direcionar anúncios a "pessoas com diabetes". O público é montado por localização, idade e pelo que a pessoa pesquisa.</p>
+      </div>
+    </section>
+
+    <section class="sec" id="perguntas">
+      <div class="sec-label"><span class="num">08</span><h2>Para começar</h2></div>
+      <div class="sec-body">
+        <p>Para colocar as campanhas no ar na primeira semana, precisamos destas informações.</p>
+        <ul class="needs">
+          <li><span class="box" aria-hidden="true"></span><div><strong>Cenário escolhido</strong><span>Lojas selecionadas ou todas as lojas de BH.</span></div></li>
+          <li><span class="box" aria-hidden="true"></span><div><strong>Qual monitor anunciar primeiro?</strong><span>Smart 2.0 (sensor) ou On Call Plus II (picada no dedo). Cada um pede uma campanha diferente: preço, público e mensagem mudam.</span></div></li>
+          <li><span class="box" aria-hidden="true"></span><div><strong>Lojas Araujo de BH que vendem o monitor</strong><span>Endereços ou planilha.</span></div></li>
+          <li><span class="box" aria-hidden="true"></span><div><strong>Vendas mensais por loja nos últimos 3 meses</strong><span>Base para medir o resultado.</span></div></li>
+          <li><span class="box" aria-hidden="true"></span><div><strong>Preço médio e frequência de recompra</strong><span>De quanto em quanto tempo o cliente repõe tiras ou sensores.</span></div></li>
+          <li><span class="box" aria-hidden="true"></span><div><strong>Materiais da marca</strong><span>Fotos, vídeos e peças da campanha "Seja Smart".</span></div></li>
+          <li><span class="box" aria-hidden="true"></span><div><strong>Registro na Anvisa</strong><span>Para conferir as frases técnicas dos anúncios.</span></div></li>
+          <li><span class="box" aria-hidden="true"></span><div><strong>Contas de Google Ads e Meta Ads</strong><span>Acesso de administrador e cartão cadastrado para a verba.</span></div></li>
+          <li><span class="box" aria-hidden="true"></span><div><strong>Contato na Araujo</strong><span>Para viabilizar cupom ou relatório de vendas da campanha.</span></div></li>
+        </ul>
+      </div>
+    </section>
+
+  </div>
+</main>
+
+<footer class="refs">
+  <div class="wrap">
+    <span>Referências:</span>
+    <a href="https://marcaspelomundo.com.br/anunciantes/medlevensohn-lanca-campanha-do-novo-monitor-de-glicose-smart/">Campanha "Seja Smart" (mai/2025)</a>
+    <a href="https://www.drogasil.com.br/sensor-smart-2-0-medlevensohn-1482558.html">Sensor Smart 2.0</a>
+    <a href="https://www.drogasil.com.br/medidor-de-glicemia-sanguinea-on-call-plus-ii-medlevensohn-889955.html">On Call Plus II</a>
+  </div>
+</footer>
+</body>
+</html>
