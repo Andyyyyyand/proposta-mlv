@@ -260,6 +260,27 @@ footer.refs .wrap { padding-block: 28px 48px; display: flex; flex-wrap: wrap; ga
   .ad-row { grid-template-columns: 1fr; gap: 28px; }
   .phone { max-width: 320px; justify-self: center; width: 100%; }
 }
+
+/* Animações de entrada (só quando a seção aparece na tela) */
+@media (prefers-reduced-motion: no-preference) {
+  .anim.in .share i { transform-origin: left; animation: grow-x 1.2s cubic-bezier(.2,.8,.2,1) both; }
+  .anim.in .channel + .channel .share i { animation-delay: .25s; }
+  .gantt.in .g-bars rect { transform-box: fill-box; transform-origin: left center; animation: grow-x .9s cubic-bezier(.2,.8,.2,1) both; animation-delay: calc(var(--i) * 140ms); }
+  .gantt.in .g-bars path { transform-box: fill-box; transform-origin: center; animation: pop .45s cubic-bezier(.3,1.6,.5,1) both; animation-delay: calc(900ms + var(--i) * 140ms); }
+  .diagram.in .node { animation: rise-in .55s ease-out both; animation-delay: calc(var(--i) * 0ms + var(--k, 0ms)); }
+  .diagram.in .edge line, .diagram.in .edge path { stroke-dasharray: 1; animation: draw .6s ease-out both; animation-delay: calc(var(--i) * 220ms + 200ms); }
+  .diagram.in .loop { animation: march 1.2s linear infinite, fade-in .6s 1.3s both; }
+  .diagram.in .t-loop { animation: fade-in .6s 1.4s both; }
+  .diagram.in .store-on rect { transform-box: fill-box; transform-origin: center; animation: pop .45s cubic-bezier(.3,1.6,.5,1) both; animation-delay: calc(var(--i) * 90ms); }
+  .diagram.in .store-ring circle { transform-box: fill-box; transform-origin: center; animation: ring 2.4s ease-out infinite; animation-delay: calc(600ms + var(--i) * 300ms); }
+  @keyframes grow-x { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+  @keyframes pop { from { transform: scale(0); } to { transform: scale(1); } }
+  @keyframes rise-in { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+  @keyframes draw { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
+  @keyframes march { to { stroke-dashoffset: -22; } }
+  @keyframes fade-in { from { opacity: 0; } to { opacity: 1; } }
+  @keyframes ring { 0% { transform: scale(.75); opacity: .9; } 100% { transform: scale(1.35); opacity: 0; } }
+}
 </style>
 </head>
 <body>
@@ -327,16 +348,16 @@ footer.refs .wrap { padding-block: 28px 48px; display: flex; flex-wrap: wrap; ga
               <marker id="arr-a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="currentColor"/></marker>
               <marker id="arr-a-accent" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="accent-fill" d="M0 0 L10 5 L0 10 z"/></marker>
             </defs>
-            <g class="node"><rect x="20" y="60" width="150" height="72" rx="12"/><text x="95" y="92" text-anchor="middle" class="t-strong">Pessoa perto</text><text x="95" y="110" text-anchor="middle" class="t-strong">da loja</text></g>
-            <g class="node"><rect x="215" y="60" width="150" height="72" rx="12"/><text x="290" y="92" text-anchor="middle" class="t-strong">Vê o anúncio</text><text x="290" y="112" text-anchor="middle" class="t-sub">Instagram · Google</text></g>
-            <g class="node"><rect x="410" y="60" width="150" height="72" rx="12"/><text x="485" y="92" text-anchor="middle" class="t-strong">Clica</text><text x="485" y="112" text-anchor="middle" class="t-sub">site Araujo ou rota</text></g>
-            <g class="node"><rect x="605" y="60" width="150" height="72" rx="12"/><text x="680" y="92" text-anchor="middle" class="t-strong">Vai à Araujo</text><text x="680" y="112" text-anchor="middle" class="t-sub">balcão da loja</text></g>
-            <g class="node node-key"><rect x="800" y="60" width="140" height="72" rx="12"/><text x="870" y="92" text-anchor="middle" class="t-strong">Compra</text><text x="870" y="112" text-anchor="middle" class="t-sub">o monitor</text></g>
+            <g class="node" style="--k:0ms"><rect x="20" y="60" width="150" height="72" rx="12"/><text x="95" y="92" text-anchor="middle" class="t-strong">Pessoa perto</text><text x="95" y="110" text-anchor="middle" class="t-strong">da loja</text></g>
+            <g class="node" style="--k:180ms"><rect x="215" y="60" width="150" height="72" rx="12"/><text x="290" y="92" text-anchor="middle" class="t-strong">Vê o anúncio</text><text x="290" y="112" text-anchor="middle" class="t-sub">Instagram · Google</text></g>
+            <g class="node" style="--k:360ms"><rect x="410" y="60" width="150" height="72" rx="12"/><text x="485" y="92" text-anchor="middle" class="t-strong">Clica</text><text x="485" y="112" text-anchor="middle" class="t-sub">site Araujo ou rota</text></g>
+            <g class="node" style="--k:540ms"><rect x="605" y="60" width="150" height="72" rx="12"/><text x="680" y="92" text-anchor="middle" class="t-strong">Vai à Araujo</text><text x="680" y="112" text-anchor="middle" class="t-sub">balcão da loja</text></g>
+            <g class="node node-key" style="--k:720ms"><rect x="800" y="60" width="140" height="72" rx="12"/><text x="870" y="92" text-anchor="middle" class="t-strong">Compra</text><text x="870" y="112" text-anchor="middle" class="t-sub">o monitor</text></g>
             <g class="edge" fill="none" stroke="currentColor" stroke-width="1.6">
-              <line x1="170" y1="96" x2="211" y2="96" marker-end="url(#arr-a)"/>
-              <line x1="365" y1="96" x2="406" y2="96" marker-end="url(#arr-a)"/>
-              <line x1="560" y1="96" x2="601" y2="96" marker-end="url(#arr-a)"/>
-              <line x1="755" y1="96" x2="796" y2="96" marker-end="url(#arr-a)"/>
+              <line pathLength="1" style="--i:1" x1="170" y1="96" x2="211" y2="96" marker-end="url(#arr-a)"/>
+              <line pathLength="1" style="--i:2" x1="365" y1="96" x2="406" y2="96" marker-end="url(#arr-a)"/>
+              <line pathLength="1" style="--i:3" x1="560" y1="96" x2="601" y2="96" marker-end="url(#arr-a)"/>
+              <line pathLength="1" style="--i:4" x1="755" y1="96" x2="796" y2="96" marker-end="url(#arr-a)"/>
             </g>
             <g class="t-edge">
               <text x="95" y="44" text-anchor="middle">raio de 1 a 3 km</text>
@@ -407,7 +428,7 @@ footer.refs .wrap { padding-block: 28px 48px; display: flex; flex-wrap: wrap; ga
       <div class="sec-label"><span class="num">04</span><h2>Investimento em mídia</h2></div>
       <div class="sec-body">
         <p>Referência de R$ 2.000 por mês, pagos direto ao Google e à Meta no cartão da MedLevensohn. O valor é variável e se ajusta a partir do 2º mês.</p>
-        <div class="budget-row">
+        <div class="budget-row anim">
           <div class="channel">
             <div class="channel-top"><h3>Instagram e Facebook</h3><span class="amount">R$ 1.200</span></div>
             <div class="share" aria-hidden="true"><i style="width: 60%"></i></div>
@@ -457,7 +478,7 @@ footer.refs .wrap { padding-block: 28px 48px; display: flex; flex-wrap: wrap; ga
             <g class="g-weeks"><text x="238.3" y="50" text-anchor="middle">1</text><text x="295.0" y="50" text-anchor="middle">2</text><text x="351.7" y="50" text-anchor="middle">3</text><text x="408.3" y="50" text-anchor="middle">4</text><text x="465.0" y="50" text-anchor="middle">5</text><text x="521.7" y="50" text-anchor="middle">6</text><text x="578.3" y="50" text-anchor="middle">7</text><text x="635.0" y="50" text-anchor="middle">8</text><text x="691.7" y="50" text-anchor="middle">9</text><text x="748.3" y="50" text-anchor="middle">10</text><text x="805.0" y="50" text-anchor="middle">11</text><text x="861.7" y="50" text-anchor="middle">12</text></g>
             <g class="g-grid" stroke-width="1"><line x1="210.0" y1="58" x2="210.0" y2="318"/><line x1="266.7" y1="58" x2="266.7" y2="318"/><line x1="323.3" y1="58" x2="323.3" y2="318"/><line x1="380.0" y1="58" x2="380.0" y2="318"/><line x1="436.7" y1="58" x2="436.7" y2="318"/><line x1="493.3" y1="58" x2="493.3" y2="318"/><line x1="550.0" y1="58" x2="550.0" y2="318"/><line x1="606.7" y1="58" x2="606.7" y2="318"/><line x1="663.3" y1="58" x2="663.3" y2="318"/><line x1="720.0" y1="58" x2="720.0" y2="318"/><line x1="776.7" y1="58" x2="776.7" y2="318"/><line x1="833.3" y1="58" x2="833.3" y2="318"/><line x1="890.0" y1="58" x2="890.0" y2="318"/></g>
             <g class="g-labels"><text x="20" y="83">Implantação</text><text x="20" y="121">Testes de anúncios</text><text x="20" y="159">Ajuste semanal</text><text x="20" y="197">Corte e concentração</text><text x="20" y="235">Anúncio de reposição</text><text x="20" y="273">Comparação de vendas</text><text x="20" y="311">Relatório e decisão</text></g>
-            <g class="g-bars"><rect class="bar-key" x="213.0" y="66" width="107.3" height="24" rx="6"/><rect class="bar" x="269.7" y="104" width="277.3" height="24" rx="6"/><rect class="bar-soft" x="213.0" y="142" width="674.0" height="24" rx="6"/><rect class="bar" x="439.7" y="180" width="220.7" height="24" rx="6"/><rect class="bar" x="496.3" y="218" width="390.7" height="24" rx="6"/><rect class="bar-key" x="666.3" y="256" width="220.7" height="24" rx="6"/><path class="ms" d="M430.7 297 l9 9 l-9 9 l-9 -9 z"/><path class="ms" d="M657.3 297 l9 9 l-9 9 l-9 -9 z"/><path class="ms-key" d="M884.0 297 l9 9 l-9 9 l-9 -9 z"/></g>
+            <g class="g-bars"><rect class="bar-key" x="213.0" y="66" width="107.3" height="24" rx="6" style="--i:1"/><rect class="bar" x="269.7" y="104" width="277.3" height="24" rx="6" style="--i:2"/><rect class="bar-soft" x="213.0" y="142" width="674.0" height="24" rx="6" style="--i:3"/><rect class="bar" x="439.7" y="180" width="220.7" height="24" rx="6" style="--i:4"/><rect class="bar" x="496.3" y="218" width="390.7" height="24" rx="6" style="--i:5"/><rect class="bar-key" x="666.3" y="256" width="220.7" height="24" rx="6" style="--i:6"/><path class="ms" d="M430.7 297 l9 9 l-9 9 l-9 -9 z" style="--i:7"/><path class="ms" d="M657.3 297 l9 9 l-9 9 l-9 -9 z" style="--i:8"/><path class="ms-key" d="M884.0 297 l9 9 l-9 9 l-9 -9 z" style="--i:9"/></g>
           </svg>
           </div>
           <figcaption>Cada barra é uma frente de trabalho. Os losangos marcam os relatórios mensais e a decisão final.</figcaption>
@@ -482,10 +503,10 @@ footer.refs .wrap { padding-block: 28px 48px; display: flex; flex-wrap: wrap; ga
             </defs>
             <text x="20" y="36" class="t-strong">Lojas com anúncio</text>
             <g class="store store-on">
-              <rect x="20" y="52" width="40" height="40" rx="8"/><rect x="70" y="52" width="40" height="40" rx="8"/><rect x="120" y="52" width="40" height="40" rx="8"/><rect x="170" y="52" width="40" height="40" rx="8"/><rect x="220" y="52" width="40" height="40" rx="8"/>
+              <rect x="20" y="52" width="40" height="40" rx="8" style="--i:1"/><rect x="70" y="52" width="40" height="40" rx="8" style="--i:2"/><rect x="120" y="52" width="40" height="40" rx="8" style="--i:3"/><rect x="170" y="52" width="40" height="40" rx="8" style="--i:4"/><rect x="220" y="52" width="40" height="40" rx="8" style="--i:5"/>
             </g>
             <g class="store-ring" fill="none">
-              <circle cx="40" cy="72" r="27"/><circle cx="90" cy="72" r="27"/><circle cx="140" cy="72" r="27"/><circle cx="190" cy="72" r="27"/><circle cx="240" cy="72" r="27"/>
+              <circle cx="40" cy="72" r="27" style="--i:1"/><circle cx="90" cy="72" r="27" style="--i:2"/><circle cx="140" cy="72" r="27" style="--i:3"/><circle cx="190" cy="72" r="27" style="--i:4"/><circle cx="240" cy="72" r="27" style="--i:5"/>
             </g>
             <text x="20" y="176" class="t-strong">Lojas sem anúncio</text>
             <g class="store store-off">
@@ -493,16 +514,16 @@ footer.refs .wrap { padding-block: 28px 48px; display: flex; flex-wrap: wrap; ga
             </g>
             <text x="20" y="256" class="t-sub">mesmo perfil, mesma cidade</text>
             <g class="edge" fill="none" stroke="currentColor" stroke-width="1.6">
-              <path d="M282 72 C340 72 340 128 386 132" marker-end="url(#arr-m)"/>
-              <path d="M282 212 C340 212 340 160 386 156" marker-end="url(#arr-m)"/>
-              <line x1="610" y1="144" x2="666" y2="144" marker-end="url(#arr-m)"/>
+              <path pathLength="1" style="--i:1" d="M282 72 C340 72 340 128 386 132" marker-end="url(#arr-m)"/>
+              <path pathLength="1" style="--i:2" d="M282 212 C340 212 340 160 386 156" marker-end="url(#arr-m)"/>
+              <line pathLength="1" style="--i:3" x1="610" y1="144" x2="666" y2="144" marker-end="url(#arr-m)"/>
             </g>
             <g class="t-edge"><text x="318" y="64">vendas do mês</text><text x="318" y="236">vendas do mês</text></g>
-            <g class="node"><rect x="390" y="96" width="220" height="96" rx="12"/>
+            <g class="node" style="--k:0ms"><rect x="390" y="96" width="220" height="96" rx="12"/>
               <text x="500" y="128" text-anchor="middle" class="t-strong">Comparação</text>
               <text x="500" y="150" text-anchor="middle" class="t-sub">cada grupo contra os seus</text>
               <text x="500" y="168" text-anchor="middle" class="t-sub">3 meses anteriores</text></g>
-            <g class="node node-key"><rect x="670" y="96" width="210" height="96" rx="12"/>
+            <g class="node node-key" style="--k:180ms"><rect x="670" y="96" width="210" height="96" rx="12"/>
               <text x="775" y="128" text-anchor="middle" class="t-strong">Diferença entre</text>
               <text x="775" y="146" text-anchor="middle" class="t-strong">os grupos</text>
               <text x="775" y="170" text-anchor="middle" class="t-sub">= efeito da campanha</text></g>
@@ -549,5 +570,18 @@ footer.refs .wrap { padding-block: 28px 48px; display: flex; flex-wrap: wrap; ga
     <a href="https://www.drogasil.com.br/medidor-de-glicemia-sanguinea-on-call-plus-ii-medlevensohn-889955.html">On Call Plus II</a>
   </div>
 </footer>
+
+<script>
+(function () {
+  var targets = document.querySelectorAll(".diagram, .anim");
+  if (!("IntersectionObserver" in window)) return;
+  var observer = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (entry.isIntersecting) { entry.target.classList.add("in"); observer.unobserve(entry.target); }
+    });
+  }, { threshold: 0.35 });
+  targets.forEach(function (target) { observer.observe(target); });
+})();
+</script>
 </body>
 </html>
